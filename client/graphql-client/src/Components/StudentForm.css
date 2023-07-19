@@ -1,0 +1,30 @@
+.container {
+  margin-top: 30px;
+}
+
+label {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-group {
+  margin-top: 15px;
+}
+
+.my-btn {
+  margin-top: 20px !important;
+  width: 150px;
+}
+
+.MuiInputBase-input {
+  height: 10px !important;
+  width: 100% !important;
+}
+
+/* input:invalid {
+  background-color: rgb(255, 174, 174);
+  border: none;
+  outline: 2px solid red;
+  border-radius: 5px;
+} */

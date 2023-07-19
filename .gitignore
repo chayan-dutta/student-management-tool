@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/GraphQLServer/.vs
+/GraphQLServer/DatabaseOperations/bin/Debug/net6.0
+/GraphQLServer/DatabaseOperations/obj
+/GraphQLServer/GraphQLServer/bin/Debug/net6.0
+/GraphQLServer/GraphQLServer/obj

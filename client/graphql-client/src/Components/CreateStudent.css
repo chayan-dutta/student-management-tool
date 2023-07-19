@@ -1,0 +1,9 @@
+.my-header {
+  background: #c9c3ff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  -webkit-box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.75);
+}
