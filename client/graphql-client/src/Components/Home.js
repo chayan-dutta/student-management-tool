@@ -12,7 +12,7 @@ import Unauthorised from "./Authentication/Unauthorised";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isAuthenticated;
+  const isLoggedIn = authCtx?.isAuthenticated;
   const { loading, error, data } = useQuery(GET_ALL_Student);
 
   const logOutHandler = () => {
@@ -38,7 +38,7 @@ const Home = () => {
             </Button>
           </div>
         </div>
-        <div className="my-body">
+        <div className="my-body" data-testid="st-details">
           <StudentList studentData={data} />
         </div>
       </div>

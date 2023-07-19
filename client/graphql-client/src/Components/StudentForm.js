@@ -167,7 +167,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
             value={studentDetails?.rollNo}
           />
           {!rollIsValid && rollIsTouched && (
-            <StyledErrorMessage>
+            <StyledErrorMessage data-testid="roll-error-message">
               Roll Number cannot be zero(0)
             </StyledErrorMessage>
           )}
@@ -189,7 +189,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
             value={studentDetails?.name}
           />
           {!nameIsValid && nameIsTouched && (
-            <StyledErrorMessage>
+            <StyledErrorMessage data-testid="name-error-message">
               This Field is required and should have atleast 3 characters
             </StyledErrorMessage>
           )}
@@ -199,7 +199,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
           <br />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              data-testid="dob"
+              label="Date of Birth"
               value={dateValue}
               onChange={(newValue) =>
                 onChangeHandler(newValue?.toString(), "dob")
@@ -210,7 +210,9 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
             />
           </LocalizationProvider>
           {!dobIsValid && dobIsTouched && (
-            <StyledErrorMessage>Date of Birth is required</StyledErrorMessage>
+            <StyledErrorMessage data-testid="date-error-message">
+              Date of Birth is required
+            </StyledErrorMessage>
           )}
         </div>
         <div className="form-group">
@@ -236,7 +238,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
               className="form-check-input"
               type="radio"
               name="inlineRadioOptions"
-              id="female"
+              data-testid="female"
               value="Female"
               checked={studentDetails?.gender === "Female"}
               onChange={(event) => {
@@ -252,7 +254,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
               className="form-check-input"
               type="radio"
               name="inlineRadioOptions"
-              id="other"
+              data-testid="other"
               value="Other"
               checked={studentDetails?.gender === "Other"}
               onChange={(event) => {
@@ -282,7 +284,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
             renderInput={(params) => <TextField {...params} required />}
           />
           {!addressIsValid && addressIsTouched && (
-            <StyledErrorMessage>
+            <StyledErrorMessage data-testid="address-error-message">
               Address is required and it should have atleast 3 characters
             </StyledErrorMessage>
           )}
@@ -328,7 +330,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
           type="submit"
           variant="contained"
           className="my-btn"
-          data-testId="submit"
+          data-testid="submit"
         >
           Submit
         </Button>
