@@ -6,9 +6,11 @@ namespace GraphQLServer.GraphQLOerations
     public class MutationType : IMutationType
     {
         private readonly CRUDOperations _crudOperation;
-        public MutationType(CRUDOperations crudOperations) 
+        private readonly RegisterAndLoginOperation _registerAndLoginOperation;
+        public MutationType(CRUDOperations crudOperations, RegisterAndLoginOperation rAndLOp) 
         { 
             _crudOperation = crudOperations;
+            _registerAndLoginOperation = rAndLOp;
         }
 
         public async Task<Student> AddNewStudent(CreateStudentInput studentInput)
@@ -27,6 +29,18 @@ namespace GraphQLServer.GraphQLOerations
         {
             Task<string> message = _crudOperation.RemoveStudent(studentId);
             return await message;
+        }
+
+        public async Task<bool> RegisterNewUser(User user)
+        {
+            Task<bool> isRegistered = _registerAndLoginOperation.RegisterUser(user);
+            return await isRegistered;
+        }
+
+        public async Task<string> UserLogin(string username, string password)
+        {
+            Task<string> loginMessage = _registerAndLoginOperation.UserLogin(username, password);
+            return await loginMessage;
         }
     }
 }

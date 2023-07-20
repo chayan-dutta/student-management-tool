@@ -15,5 +15,15 @@ namespace DataAccessLayer
 
             return serviceProvider.GetRequiredService<StudentDbContext>();
         }
+
+        public static UserDbContext CreateUserDbContext()
+        {
+            var serviceProvider = new ServiceCollection()
+                .AddDbContext<UserDbContext>(options => 
+                    options.UseSqlServer("Server=localhost\\SQLEXPRESS; Database=PracticeDB;Trusted_Connection=True;Encrypt=False"))
+                .BuildServiceProvider();
+            
+            return serviceProvider.GetRequiredService<UserDbContext>();
+        }
     }
 }

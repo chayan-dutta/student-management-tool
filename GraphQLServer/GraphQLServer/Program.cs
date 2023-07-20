@@ -27,6 +27,7 @@ var DbContext = EFConfigurator.CreateDbContext(connectionString);*/
 
 // builder.Services.AddSingleton(DbContext);
 builder.Services.AddScoped<CRUDOperations>();
+builder.Services.AddScoped<RegisterAndLoginOperation>();
 
 builder.Services.AddCors(options =>
 {
