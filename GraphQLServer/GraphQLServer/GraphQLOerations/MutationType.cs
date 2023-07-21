@@ -31,9 +31,9 @@ namespace GraphQLServer.GraphQLOerations
             return await message;
         }
 
-        public async Task<bool> RegisterNewUser(User user)
+        public async Task<string> RegisterNewUser(User user)
         {
-            Task<bool> isRegistered = _registerAndLoginOperation.RegisterUser(user);
+            Task<string> isRegistered = _registerAndLoginOperation.RegisterUser(user);
             return await isRegistered;
         }
 

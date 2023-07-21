@@ -17,14 +17,7 @@ label {
   width: 150px;
 }
 
-.MuiInputBase-input {
+.autocomplete .MuiInputBase-input {
   height: 10px !important;
   width: 100% !important;
 }
-
-/* input:invalid {
-  background-color: rgb(255, 174, 174);
-  border: none;
-  outline: 2px solid red;
-  border-radius: 5px;
-} */

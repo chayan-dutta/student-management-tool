@@ -269,6 +269,7 @@ const StudentForm = ({ studentData, modifiedStudentData }) => {
         <div className="form-group">
           <label htmlFor="city">City</label>
           <Autocomplete
+            className="autocomplete"
             freeSolo
             disableClearable
             id="combo-box-demo"

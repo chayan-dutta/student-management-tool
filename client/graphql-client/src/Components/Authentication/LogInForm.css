@@ -1,0 +1,24 @@
+.logindiv {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../assets/college-image.jpg") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.css-binzgt {
+  margin-top: 0px !important;
+}
+
+.logindiv > .MuiContainer-root {
+  max-width: 500px !important;
+  border-radius: 15px;
+  padding: 20px !important;
+  position: relative !important;
+  top: 100px !important;
+  background: #ffffffe8 !important;
+  -webkit-box-shadow: 15px 15px 29px 3px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: 15px 15px 29px 3px rgba(0, 0, 0, 0.77);
+  box-shadow: 15px 15px 29px 3px rgba(0, 0, 0, 0.77);
+}

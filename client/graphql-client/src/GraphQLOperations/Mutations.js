@@ -6,38 +6,16 @@ export const Delete_Student = gql`
   }
 `;
 
-export const Update_Student1 = gql`
-  mutation UpdateStudent($updatedStudentData: StudentInput!) {
-    updateStdent(updatedStudent: $updatedStudentData) {
-      id
-      rollNo
-      name
-      course
-      address
-      dateOfBirth
-      gender
-      grade
-    }
-  }
-`;
-
 export const Update_Student = gql`
   mutation UpdateStudent($input: StudentInput!) {
     updateStdent(updatedStudent: $input) {
       id
-
       rollNo
-
       name
-
       course
-
       address
-
       dateOfBirth
-
       gender
-
       grade
     }
   }
@@ -55,5 +33,17 @@ export const ADD_Student = gql`
       course
       grade
     }
+  }
+`;
+
+export const Register_User = gql`
+  mutation ($newUser: UserInput!) {
+    registerNewUser(user: $newUser)
+  }
+`;
+
+export const Login_User = gql`
+  mutation ($username: String!, $password: String!) {
+    userLogin(username: $username, password: $password)
   }
 `;

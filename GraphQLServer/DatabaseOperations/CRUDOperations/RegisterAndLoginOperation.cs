@@ -21,7 +21,7 @@ namespace DataAccessLayer.CRUDOperations
             _userDbContext = EFConfigurator.CreateUserDbContext();
         }
 
-        public async Task<bool> RegisterUser(User user)
+        public async Task<string> RegisterUser(User user)
         {
             if (user == null)
             {
@@ -31,7 +31,7 @@ namespace DataAccessLayer.CRUDOperations
             if (await _userDbContext.User_Details.AnyAsync(u => u.Username == user.Username)
                    || await _userDbContext.User_Details.AnyAsync(u => u.Email == user.Email))
             {
-                return false; // User already exists
+                return "User already exists"; // User already exists
             }
 
             string hashedPasssword = HashPassword(user.Password);
@@ -50,13 +50,14 @@ namespace DataAccessLayer.CRUDOperations
             {
                 _userDbContext.User_Details.Add(newUser);
                 await _userDbContext.SaveChangesAsync();
+                var jwtToken = CreateToken(newUser);
+                return jwtToken; // user created
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false; // Error occured
+                return e.Message; // Error occured
             }
-            return true; //User Created
         }
 
         public async Task<string> UserLogin(string username, string password)
