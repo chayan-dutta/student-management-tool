@@ -1,0 +1,43 @@
+.my-header {
+  background: #c9c3ff;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  -webkit-box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 5px 18px 0px rgba(0, 0, 0, 0.75);
+}
+
+.errorModule {
+  margin: 40px auto 20px;
+  text-align: center;
+  color: #a80000;
+}
+.errorModule .errorIcon {
+  font-size: 34px;
+  margin: 15px;
+  animation: animateIcon 5s infinite;
+}
+.errorModule .errorMsg {
+  font-size: 25px;
+}
+@keyframes animateIcon {
+  0% {
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    transform: scale(2);
+  }
+  100% {
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}

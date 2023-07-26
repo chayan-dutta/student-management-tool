@@ -54,7 +54,7 @@ const CreateStudent = () => {
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            navigate("/home");
+            navigate("/");
           }
         });
       })
@@ -66,32 +66,36 @@ const CreateStudent = () => {
 
   const logOutHandler = () => {
     authCtx.isAuthenticated = false;
-    localStorage.removeItem("LoggedInUser");
+    authCtx.userDetails = { name: "", role: "" };
+    navigate("/login");
+    localStorage.removeItem("jwtToken");
   };
 
-  if (isLoggedIn) {
-    return (
-      <>
-        <div className="my-header">
-          <h2>Add Student</h2>
-          <Link to="/home">
+  return (
+    <>
+      <div className="my-header">
+        <h2>Add Student</h2>
+        <div>
+          <Link to="/">
             <Button variant="contained">Go To Home</Button>
           </Link>
-          <Link to="/">
-            <Button variant="contained" onClick={logOutHandler}>
+          <Link to="/login">
+            <Button
+              variant="contained"
+              onClick={logOutHandler}
+              style={{ marginLeft: "10px" }}
+            >
               Log Out
             </Button>
           </Link>
         </div>
-        <StudentForm
-          studentData={studentDetails}
-          modifiedStudentData={onNewStudentCreation}
-        />
-      </>
-    );
-  } else {
-    return <Unauthorised />;
-  }
+      </div>
+      <StudentForm
+        studentData={studentDetails}
+        modifiedStudentData={onNewStudentCreation}
+      />
+    </>
+  );
 };
 
 export default CreateStudent;

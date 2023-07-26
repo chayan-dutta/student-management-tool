@@ -44,7 +44,7 @@ const EditStudent = () => {
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            navigate("/home");
+            navigate("/");
           }
         });
       })
@@ -55,30 +55,34 @@ const EditStudent = () => {
 
   const logOutHandler = () => {
     authCtx.isAuthenticated = false;
-    localStorage.removeItem("LoggedInUser");
+    authCtx.userDetails = { name: "", role: "" };
+    navigate("/login");
+    localStorage.removeItem("jwtToken");
   };
 
-  if (isLoggedIn) {
-    return (
-      <>
-        <div className="my-header">
-          <h2> Edit Student </h2>
-          <Link to="/home">
+  return (
+    <>
+      <div className="my-header">
+        <h2> Edit Student </h2>
+        <div>
+          <Link to="/">
             <Button variant="contained">Go To Home</Button>
           </Link>
-          <Button variant="contained" onClick={logOutHandler}>
+          <Button
+            variant="contained"
+            onClick={logOutHandler}
+            style={{ marginLeft: "10px" }}
+          >
             Log Out
           </Button>
         </div>
-        <StudentForm
-          studentData={updateStudentDetails}
-          modifiedStudentData={onStudentModification}
-        />
-      </>
-    );
-  } else {
-    return <Unauthorised />;
-  }
+      </div>
+      <StudentForm
+        studentData={updateStudentDetails}
+        modifiedStudentData={onStudentModification}
+      />
+    </>
+  );
 };
 
 export default EditStudent;

@@ -1,3 +1,4 @@
+import { useContext, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa6";
 import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -8,20 +9,24 @@ import withReactContent from "sweetalert2-react-content";
 import { GET_ALL_Student } from "../GraphQLOperations/Queries";
 import { Delete_Student } from "../GraphQLOperations/Mutations";
 import StudentDetails from "./StudentDetails";
-import { useState } from "react";
+import AuthContext from "../store/AuthProvider";
 
 const StudentList = ({ studentData }) => {
+  console.log("Student Data", studentData);
+
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
   const [studentDataToBePassed, setStudentDataToBePassed] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
+  const authCtx = useContext(AuthContext);
 
-  console.log("All Stuents in List component before removal", studentData);
+  const role = authCtx.userDetails.role;
+
+  // Removing __typename that we received from graphQL by default.
   studentData = studentData?.allStudents.map((obj) => {
     const { __typename, ...rest } = obj;
     return rest;
   });
-  console.log("All Stuents in List component", studentData);
 
   const [deleteStudent, { loading, error }] = useMutation(Delete_Student, {
     refetchQueries: [{ query: GET_ALL_Student }],
@@ -106,22 +111,26 @@ const StudentList = ({ studentData }) => {
                   <td>{student.address}</td>
                   <td>{student.course}</td>
                   <td>{student.grade}</td>
-                  <td>
-                    <BiEdit
-                      color="blue"
-                      fontSize="23px"
-                      cursor="pointer"
-                      onClick={() => editHandler(student)}
-                    />
-                  </td>
-                  <td>
-                    <FaTrash
-                      color="red"
-                      fontSize="20px"
-                      cursor="pointer"
-                      onClick={() => deleteHandler(student)}
-                    />
-                  </td>
+                  {role !== "Student" && (
+                    <td>
+                      <BiEdit
+                        color="blue"
+                        fontSize="23px"
+                        cursor="pointer"
+                        onClick={() => editHandler(student)}
+                      />
+                    </td>
+                  )}
+                  {role !== "Student" && (
+                    <td>
+                      <FaTrash
+                        color="red"
+                        fontSize="20px"
+                        cursor="pointer"
+                        onClick={() => deleteHandler(student)}
+                      />
+                    </td>
+                  )}
                 </tr>
               );
             })}

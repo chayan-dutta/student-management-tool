@@ -8,6 +8,10 @@ import EditStudent from "./Components/EditStudent";
 import RegistrationForm from "./Components/Authentication/RegistrationForm";
 import LogInForm from "./Components/Authentication/LogInForm";
 import AuthContext, { AuthProvider } from "./store/AuthProvider";
+import Layout from "./Components/Authentication/Layout";
+import NotFound from "./Components/NotFound";
+import RequireAuthentication from "./Components/Authentication/RequireAuthentication";
+import Unauthorised from "./Components/Authentication/Unauthorised";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -16,11 +20,31 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" exact element={<LogInForm />} />
-          <Route path="/register" exact element={<RegistrationForm />} />
-          <Route path="/home" exact element={<Home />} />
-          <Route path="/add-student" element={<CreateStudent />} />
-          <Route path="/edit-student" element={<EditStudent />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="/register" element={<RegistrationForm />} />
+            <Route path="/login" element={<LogInForm />} />
+            <Route path="/unauthorised" element={<Unauthorised />} />
+
+            <Route
+              element={
+                <RequireAuthentication
+                  allowedRoles={["Teacher", "Student", "Admin"]}
+                />
+              }
+            >
+              <Route path="/" exact element={<Home />} />
+            </Route>
+            <Route
+              element={
+                <RequireAuthentication allowedRoles={["Teacher", "Admin"]} />
+              }
+            >
+              <Route path="/add-student" element={<CreateStudent />} />
+              <Route path="/edit-student" element={<EditStudent />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>

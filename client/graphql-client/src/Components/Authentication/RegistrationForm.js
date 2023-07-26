@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -22,12 +22,16 @@ import { useMutation } from "@apollo/client";
 
 import "./RegistrationForm.css";
 import { Register_User } from "../../GraphQLOperations/Mutations";
+import AuthContext from "../../store/AuthProvider";
+import Home from "../Home";
 
 const defaultTheme = createTheme();
 
 const RegistrationForm = () => {
   const [registerUser, { data, loading, error }] = useMutation(Register_User);
   const roles = ["Student", "Teacher"];
+  const navigate = useNavigate();
+  const authCtx = React.useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -163,9 +167,17 @@ const RegistrationForm = () => {
         },
       },
     }).then((data) => {
-      console.log(data);
+      localStorage.setItem("jwtToken", data.data.registerNewUser);
+      authCtx.setUserDetails(data.data.registerNewUser);
+      navigate("/");
     });
   };
+
+  if (authCtx.isAuthenticated) {
+    setTimeout(() => {
+      navigate("/");
+    }, 0);
+  }
 
   return (
     <div className="registerdiv">

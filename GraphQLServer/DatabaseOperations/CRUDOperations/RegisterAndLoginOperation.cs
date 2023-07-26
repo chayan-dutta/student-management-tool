@@ -93,7 +93,8 @@ namespace DataAccessLayer.CRUDOperations
 
             var token = new JwtSecurityToken(
                 claims:  claims, 
-                expires:  DateTime.Now.AddDays(1), 
+                //expires:  DateTime.Now.AddDays(1), 
+                expires: DateTime.UtcNow.AddMinutes(2),
                 signingCredentials: credentials);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);

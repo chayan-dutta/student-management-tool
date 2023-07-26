@@ -10,18 +10,21 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
 import "./LogInForm.css";
 import { Login_User } from "../../GraphQLOperations/Mutations";
+import AuthContext from "../../store/AuthProvider";
+import Home from "../Home";
 
 const defaultTheme = createTheme();
 
 const LogInForm = () => {
   const [userLogin, { data, loading, error }] = useMutation(Login_User);
+  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
@@ -111,11 +114,18 @@ const LogInForm = () => {
           allowOutsideClick: false,
         });
       } else {
-        navigate("/home");
+        navigate("/");
         localStorage.setItem("jwtToken", data.data.userLogin);
+        authCtx.setUserDetails(data.data.userLogin);
       }
     });
   };
+
+  if (authCtx.isAuthenticated) {
+    setTimeout(() => {
+      navigate("/");
+    }, 0);
+  }
 
   return (
     <div className="logindiv">
