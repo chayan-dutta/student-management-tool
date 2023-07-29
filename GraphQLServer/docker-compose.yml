@@ -1,0 +1,33 @@
+version: '3.4'
+
+networks:
+  StudentManagementNetwork:
+
+services:
+  graphqlAppDB:
+    container_name: student-management-app-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Chayan@123
+    networks:
+      - StudentManagementNetwork
+
+  graphqlserver:
+    container_name: student-management-server
+    image: ${DOCKER_REGISTRY-}graphqlserver
+    build:
+      context: .
+      dockerfile: GraphQLServer/Dockerfile
+    ports:
+      - 8000:80 
+    depends_on:
+      - graphqlAppDB
+    environment:
+      - DB_HOST=graphqlAppDB
+      - DB_NAME=StudentManagementDB
+      - DB_SA_PASSWORD=Chayan@123
+    networks:
+      - StudentManagementNetwork
