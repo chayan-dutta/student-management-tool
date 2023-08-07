@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>5481b0d8-8b17-40ef-8303-94ec2adc653d</ProjectGuid>
+    <ProjectGuid>7e5a18c8-7858-49e7-b9d4-3658c572967a</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>graphqlserver</DockerServiceName>

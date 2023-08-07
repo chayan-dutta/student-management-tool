@@ -9,8 +9,8 @@ namespace DataAccessLayer
     {
         public static StudentDbContext CreateDbContext()
         {
-            var connectionstring = "Server=localhost;Port=5433;Database=PracticeDB;UserName=postgres;Password=postgres;";
-
+            //var connectionstring = "Server=localhost;Port=5433;Database=PracticeDB;UserName=postgres;Password=postgres;";
+            var connectionstring = Environment.GetEnvironmentVariable("ConnectionStrings_DefaultConnections");
             var serviceProvider = new ServiceCollection()
                  .AddDbContext<StudentDbContext>(options =>
                      options.UseNpgsql(connectionstring))
@@ -21,7 +21,8 @@ namespace DataAccessLayer
 
         public static UserDbContext CreateUserDbContext()
         {
-            var connectionstring = "Server=localhost;Port=5433;Database=PracticeDB;UserName=postgres;Password=postgres;";
+            //var connectionstring = "Server=localhost;Port=5433;Database=PracticeDB;UserName=postgres;Password=postgres;";
+            var connectionstring = Environment.GetEnvironmentVariable("ConnectionStrings_DefaultConnections");
             var serviceProvider = new ServiceCollection()
                 .AddDbContext<UserDbContext>(options =>
                     options.UseNpgsql(connectionstring))

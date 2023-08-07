@@ -1,33 +1,35 @@
 version: '3.4'
 
-networks:
-  StudentManagementNetwork:
-
 services:
-  graphqlAppDB:
-    container_name: student-management-app-db
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    ports:
-      - 8002:1433
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Chayan@123
-    networks:
-      - StudentManagementNetwork
-
   graphqlserver:
-    container_name: student-management-server
     image: ${DOCKER_REGISTRY-}graphqlserver
     build:
       context: .
       dockerfile: GraphQLServer/Dockerfile
     ports:
-      - 8000:80 
-    depends_on:
-      - graphqlAppDB
+     - "8080:80"
+     - "54321:443"
     environment:
-      - DB_HOST=graphqlAppDB
-      - DB_NAME=StudentManagementDB
-      - DB_SA_PASSWORD=Chayan@123
+      ConnectionStrings_DefaultConnections: "Host=postgres;Database=postgres;UserName=postgres;Password=postgres;"
+    depends_on:
+     - "postgres"
     networks:
-      - StudentManagementNetwork
+      - graphqlserver-network
+
+  postgres:
+    container_name: 'postgres'
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - graphqlserver-network
+
+networks:
+  graphqlserver-network:
+    driver: bridge

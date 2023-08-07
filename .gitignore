@@ -8,3 +8,6 @@
 /GraphQLServer/GraphQLServer/bin/Debug/net6.0
 /GraphQLServer/GraphQLServer/obj
 /.vs
+/GraphQLServer/obj/Docker
+/GraphQLServer/bin/Debug
+/GraphQLServer/obj/Debug
