@@ -3,13 +3,13 @@ import { useContext, useEffect, useState } from "react";
 
 import "./App.css";
 import Home from "./Components/Home";
-import CreateStudent from "./Components/CreateStudent";
-import EditStudent from "./Components/EditStudent";
+import CreateStudent from "./Components/MainPages/CreateStudent";
+import EditStudent from "./Components/MainPages/EditStudent";
 import RegistrationForm from "./Components/Authentication/RegistrationForm";
 import LogInForm from "./Components/Authentication/LogInForm";
 import AuthContext, { AuthProvider } from "./store/AuthProvider";
 import Layout from "./Components/Authentication/Layout";
-import NotFound from "./Components/NotFound";
+import NotFound from "./Components/OtherPages/NotFound";
 import RequireAuthentication from "./Components/Authentication/RequireAuthentication";
 import Unauthorised from "./Components/Authentication/Unauthorised";
 

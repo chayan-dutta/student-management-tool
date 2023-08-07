@@ -1,20 +1,16 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { gql, useMutation } from "@apollo/client";
-import { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { useState } from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
-import StudentForm from "./StudentForm";
-import { Update_Student } from "../GraphQLOperations/Mutations";
-import { GET_ALL_Student } from "../GraphQLOperations/Queries";
+import StudentForm from "../UI/StudentForm";
+import { Update_Student } from "../../GraphQLOperations/Mutations";
+import { GET_ALL_Student } from "../../GraphQLOperations/Queries";
 import "./EditStudent.css";
-import { Button } from "@mui/material";
-import AuthContext from "../store/AuthProvider";
-import Unauthorised from "./Authentication/Unauthorised";
+import Header from "../MainPages/Header";
 
 const EditStudent = () => {
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isAuthenticated;
   const MySwal = withReactContent(Swal);
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,30 +49,9 @@ const EditStudent = () => {
       });
   };
 
-  const logOutHandler = () => {
-    authCtx.isAuthenticated = false;
-    authCtx.userDetails = { name: "", role: "" };
-    navigate("/login");
-    localStorage.removeItem("jwtToken");
-  };
-
   return (
     <>
-      <div className="my-header">
-        <h2> Edit Student </h2>
-        <div>
-          <Link to="/">
-            <Button variant="contained">Go To Home</Button>
-          </Link>
-          <Button
-            variant="contained"
-            onClick={logOutHandler}
-            style={{ marginLeft: "10px" }}
-          >
-            Log Out
-          </Button>
-        </div>
-      </div>
+      <Header title="Edit Student" isEditOrAddPage={true} />
       <StudentForm
         studentData={updateStudentDetails}
         modifiedStudentData={onStudentModification}

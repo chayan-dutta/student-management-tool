@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./ErrorComponent.css";
-import AuthContext from "../store/AuthProvider";
+import AuthContext from "../../store/AuthProvider";
 
 const ErrorComponent = () => {
   const authCtx = useContext(AuthContext);

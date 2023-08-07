@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-import contactImg from "../assets/contact.jpg";
+import contactImg from "../../assets/contact.jpg";
 
 const StudentDetails = ({ studentData, onCloseDialog }) => {
   const [open, setOpen] = useState(true);

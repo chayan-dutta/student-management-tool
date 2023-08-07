@@ -4,17 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import StudentForm from "./StudentForm";
-import { ADD_Student } from "../GraphQLOperations/Mutations";
-import { GET_ALL_Student } from "../GraphQLOperations/Queries";
+import StudentForm from "../UI/StudentForm";
+import { ADD_Student } from "../../GraphQLOperations/Mutations";
+import { GET_ALL_Student } from "../../GraphQLOperations/Queries";
 import "./CreateStudent.css";
-import { Button } from "@mui/material";
-import AuthContext from "../store/AuthProvider";
-import Unauthorised from "./Authentication/Unauthorised";
+import AuthContext from "../../store/AuthProvider";
+import Header from "./Header";
 
 const CreateStudent = () => {
   const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isAuthenticated;
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
   const [addStudent, { data, loading, error }] = useMutation(ADD_Student, {
@@ -64,32 +62,9 @@ const CreateStudent = () => {
       });
   };
 
-  const logOutHandler = () => {
-    authCtx.isAuthenticated = false;
-    authCtx.userDetails = { name: "", role: "" };
-    navigate("/login");
-    localStorage.removeItem("jwtToken");
-  };
-
   return (
     <>
-      <div className="my-header">
-        <h2>Add Student</h2>
-        <div>
-          <Link to="/">
-            <Button variant="contained">Go To Home</Button>
-          </Link>
-          <Link to="/login">
-            <Button
-              variant="contained"
-              onClick={logOutHandler}
-              style={{ marginLeft: "10px" }}
-            >
-              Log Out
-            </Button>
-          </Link>
-        </div>
-      </div>
+      <Header title="Add Student" isEditOrAddPage={true} />
       <StudentForm
         studentData={studentDetails}
         modifiedStudentData={onNewStudentCreation}

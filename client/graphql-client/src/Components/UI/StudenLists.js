@@ -6,10 +6,10 @@ import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { GET_ALL_Student } from "../GraphQLOperations/Queries";
-import { Delete_Student } from "../GraphQLOperations/Mutations";
+import { GET_ALL_Student } from "../../GraphQLOperations/Queries";
+import { Delete_Student } from "../../GraphQLOperations/Mutations";
 import StudentDetails from "./StudentDetails";
-import AuthContext from "../store/AuthProvider";
+import AuthContext from "../../store/AuthProvider";
 
 const StudentList = ({ studentData }) => {
   console.log("Student Data", studentData);

@@ -8,7 +8,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import cities from "../static-data/cities";
+import cities from "../../static-data/cities";
 import { styled } from "styled-components";
 
 const StyledErrorMessage = styled.span`
