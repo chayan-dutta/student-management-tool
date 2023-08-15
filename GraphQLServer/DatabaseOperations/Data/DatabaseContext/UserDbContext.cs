@@ -1,10 +1,5 @@
 ﻿using DataAccessLayer.Data.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.DatabaseContext
 {
@@ -12,6 +7,6 @@ namespace DataAccessLayer.Data.DatabaseContext
     {
         public UserDbContext(DbContextOptions<UserDbContext> options): base(options) { }
 
-        public DbSet<User> User_Details { get; set; }
+        public DbSet<User> user_details { get; set; }
     }
 }

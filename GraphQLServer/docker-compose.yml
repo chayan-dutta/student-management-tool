@@ -1,6 +1,20 @@
 version: '3.4'
 
 services:
+  graphqlclient:
+    image: ${DOCKER_REGISTRY-}graphqlclient
+    build:
+      context: ../client/graphql-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://127.0.0.1:54321/graphql
+    depends_on:
+     - graphqlserver
+    networks:
+     - graphqlserver-network
+       
   graphqlserver:
     image: ${DOCKER_REGISTRY-}graphqlserver
     build:
@@ -10,25 +24,23 @@ services:
      - "8080:80"
      - "54321:443"
     environment:
-      ConnectionStrings_DefaultConnections: "Host=postgres;Database=postgres;UserName=postgres;Password=postgres;"
-    depends_on:
-     - "postgres"
+      ConnectionString: "Host=192.168.0.187;Port=5432;Database=PracticeDB;UserName=postgres;"
     networks:
       - graphqlserver-network
 
-  postgres:
-    container_name: 'postgres'
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - graphqlserver-network
+ # postgres:
+ #  container_name: 'postgres'
+ #   image: postgres
+ #   environment:
+ #     POSTGRES_USER: postgres
+ #     POSTGRES_PASSWORD: postgres
+ #     POSTGRES_DB: postgres
+ #   ports:
+ #     - "5432:5432"
+ #   volumes:
+ #     - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+ #   networks:
+ #     - graphqlserver-network
 
 networks:
   graphqlserver-network:

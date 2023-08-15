@@ -7,6 +7,6 @@ namespace DataAccessLayer.Data.DatabaseContext
     {
         public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options) {  }
 
-        public DbSet<Student> Student_Details { get; set; }
+        public DbSet<Student> student_details { get; set; }
     }
 }
