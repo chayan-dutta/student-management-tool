@@ -1,3 +1,10 @@
+-- Create the database
+CREATE DATABASE StudentManagementDB;
+
+-- Connect to the newly created database
+\c StudentManagementDB;
+
+-- Create the student_details table
 CREATE TABLE IF NOT EXISTS student_details (
     "Id" UUID NOT NULL,
     "RollNo" INTEGER NOT NULL,

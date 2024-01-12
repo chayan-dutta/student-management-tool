@@ -18,7 +18,7 @@ namespace DataAccessLayer.CRUDOperations
         {
             using (var _dbContext = EFConfigurator.CreateDbContext())
             {
-                var student = await _dbContext.Student_Details.ToListAsync();
+                var student = await _dbContext.student_details.ToListAsync();
                 return student;
             }
             
@@ -26,7 +26,7 @@ namespace DataAccessLayer.CRUDOperations
 
         public async Task<Student> GetStudentByRollNo(int rollNo)
         {
-            Student? student = await _studentDbContext.Student_Details.FindAsync(rollNo);
+            Student? student = await _studentDbContext.student_details.FindAsync(rollNo);
             if (student == null)
             {
                 throw new Exception("Student Not Found");
@@ -37,15 +37,15 @@ namespace DataAccessLayer.CRUDOperations
         public async Task<Student> AddNewStudent(CreateStudentInput studentInput)
         {
             string dateString = studentInput.DateOfBirth; // The date string in yyyy-MM-dd format
-
-            // Using DateTime.ParseExact method (if you have a specific format)
+                       // Using DateTime.ParseExact method (if you have a specific format)
             DateTime dateOfBirth = DateTime.ParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime utcDateOfBirth = dateOfBirth.ToUniversalTime();
             Student student = new Student
             {
                 Id = Guid.NewGuid(),
                 RollNo = studentInput.RollNo,
                 Name = studentInput.Name,
-                DateOfBirth = dateOfBirth.Date,
+                DateOfBirth = utcDateOfBirth.Date,
                 Gender = studentInput.Gender,
                 Address = studentInput.Address,
                 Course = studentInput.Course,
@@ -53,7 +53,7 @@ namespace DataAccessLayer.CRUDOperations
             };
             try
             {
-                _studentDbContext.Student_Details.Add(student);
+                _studentDbContext.student_details.Add(student);
                 await _studentDbContext.SaveChangesAsync();
             }
             catch (Exception e)
@@ -67,7 +67,7 @@ namespace DataAccessLayer.CRUDOperations
         {
             try
             {
-                Student? student = await _studentDbContext.Student_Details.FindAsync(updatedStudent.Id);
+                Student? student = await _studentDbContext.student_details.FindAsync(updatedStudent.Id);
                 if (student == null)
                 {
                     throw new Exception("Student Not Found");
@@ -79,7 +79,7 @@ namespace DataAccessLayer.CRUDOperations
                 student.Gender = updatedStudent.Gender;
                 student.Address = updatedStudent.Address;
                 student.Grade = updatedStudent.Grade;
-                // studentDbContext.Student_Details.Update(updatedStudent);
+                // studentDbContext.student_details.Update(updatedStudent);
                 await _studentDbContext.SaveChangesAsync();
             }
             catch (Exception e)
@@ -92,12 +92,12 @@ namespace DataAccessLayer.CRUDOperations
 
         public async Task<string> RemoveStudent(Guid studentId)
         {
-            Student? student = await _studentDbContext.Student_Details.FindAsync(studentId);
+            Student? student = await _studentDbContext.student_details.FindAsync(studentId);
             if (student == null)
             {
                 throw new Exception("Student Not Found");
             }
-            _studentDbContext.Student_Details.Remove(student);
+            _studentDbContext.student_details.Remove(student);
             await _studentDbContext.SaveChangesAsync();
             return "Student Details Successfully Deleted From Database";
         }

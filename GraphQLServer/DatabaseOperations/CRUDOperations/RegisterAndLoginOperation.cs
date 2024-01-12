@@ -28,8 +28,8 @@ namespace DataAccessLayer.CRUDOperations
                 throw new ArgumentNullException(nameof(user));
             }
 
-            if (await _userDbContext.User_Details.AnyAsync(u => u.Username == user.Username)
-                   || await _userDbContext.User_Details.AnyAsync(u => u.Email == user.Email))
+            if (await _userDbContext.user_details.AnyAsync(u => u.Username == user.Username)
+                   || await _userDbContext.user_details.AnyAsync(u => u.Email == user.Email))
             {
                 return "User already exists"; // User already exists
             }
@@ -48,7 +48,7 @@ namespace DataAccessLayer.CRUDOperations
 
             try
             {
-                _userDbContext.User_Details.Add(newUser);
+                _userDbContext.user_details.Add(newUser);
                 await _userDbContext.SaveChangesAsync();
                 var jwtToken = CreateToken(newUser);
                 return jwtToken; // user created
@@ -62,7 +62,7 @@ namespace DataAccessLayer.CRUDOperations
 
         public async Task<string> UserLogin(string username, string password)
         {
-            var user = await _userDbContext.User_Details.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _userDbContext.user_details.FirstOrDefaultAsync(u => u.Username == username);
             if(user == null)
             {
                 return "User Doesnot Exist";
@@ -94,7 +94,7 @@ namespace DataAccessLayer.CRUDOperations
             var token = new JwtSecurityToken(
                 claims:  claims, 
                 //expires:  DateTime.Now.AddDays(1), 
-                expires: DateTime.UtcNow.AddMinutes(2),
+                expires: DateTime.UtcNow.AddMinutes(60),
                 signingCredentials: credentials);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
