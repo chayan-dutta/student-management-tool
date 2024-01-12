@@ -13,7 +13,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: "https://localhost:7254/graphql/",
+  uri: "http://ip172-18-0-28-cjaskj8gftqg00ejl3t0-54323.direct.labs.play-with-docker.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

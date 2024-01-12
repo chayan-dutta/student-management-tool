@@ -13,6 +13,11 @@ namespace GraphQLServer.TokenService
             _tokenValidationParameters = tokenValidationParameters;
         }
 
+        /// <summary>
+        /// Extract role of the user from token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public string GetRoleFromToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -24,6 +29,11 @@ namespace GraphQLServer.TokenService
             return roleClaim?.Value;
         }
 
+        /// <summary>
+        /// Verify if the token is valid
+        /// </summary>
+        /// <param name="jwtToken"></param>
+        /// <returns></returns>
         public bool IsTokenValid(string jwtToken)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
